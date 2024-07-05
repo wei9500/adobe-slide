@@ -1,0 +1,276 @@
+@charset "utf-8";
+
+body {
+    font-family: Arial, Helvetica, "微軟正黑體", sans-serif;
+}
+
+img{
+    vertical-align: bottom;
+    /* img標籤下面會有一個空間，設定垂直向下對齊 */
+}
+
+
+a{
+    outline: none;
+    /* 按下tab鍵，周圍會出現的框 */
+}       
+
+/* helper------------------------------ */
+
+.mask {
+    overflow: hidden;
+}
+
+/* layout------------------------------ */
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* nav (右側按鈕）---------------------- */
+
+.nav {
+    position: fixed;
+    right: 1rem;
+    top: 50%;
+    margin-top: -117px;
+    /* 上移一半高度 */
+}
+
+.nav-active {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.nav-btn {
+    background-color: #fff;
+    width: 15px;
+    height: 15px;
+    display: block;
+    /* a 預設行內，要改尺寸先改成區塊 */
+    text-indent: -9999px;
+    /* 隱藏文字 */
+    opacity: .5;
+    margin: 1rem;
+    transition-duration: .3s;
+    border: none;
+    cursor: pointer;
+    /* 因為input預設沒有手指，所以加游標手指 */
+
+} 
+
+.nav-btn-index {
+    background-color: #000;
+}
+
+
+.nav-btn-active,
+.nav-btn:hover {
+    opacity: 1;
+}
+
+.nav-btn-active {
+    pointer-events: none;
+    /* 去除超連結，當頁無法點擊 */
+}
+
+/* article---------------------- */
+
+.article {
+    max-width: 950px;
+    /* background-color: pink; */
+    color: #fff;
+    padding: 3rem 5rem;
+    box-sizing: border-box;
+    /* 加了才會包含邊框 950px */
+}
+
+.article-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    /* 怕標題2行的話會黏在一起 */
+    text-transform: capitalize;
+    /* 首字大寫 */
+}
+
+.article-desc {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    text-align: justify;
+    /* 左右齊行 */
+}
+
+/* grid---------------------- */
+
+.grid {
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    
+    display: grid;
+    gap: 1.5rem;
+}
+
+.grid-slide {
+    gap: 0;
+}
+
+.grid-3 {
+    /* grid-template-columns: 33.333% 33.333% 33.333%; */
+    grid-template-columns: repeat(3, 1fr);
+    /* (欄數, 均分) */
+}
+/* 桌機 */
+
+.grid-2 {
+    /* grid-template-columns: 50% 50%; */
+    grid-template-columns: repeat(2, 1fr);
+}
+/* 手機 */
+
+.grid-item {
+    width: 100vw;
+    height: 100vh;
+    /* v：viewport 可視範圍。vw：寬可視範圍、vh：高可視範圍 */
+}
+
+.grid-item-ac {
+    background-color: #333;
+}
+
+.grid-item-pr {
+    background-color: #dd1f8e;
+}
+
+.grid-item-ps {
+    background-color: #00a7e2;
+}
+
+.grid-item-ae {
+    background-color: #620294;
+}
+
+.grid-item-ai {
+    background-color: #ee9a10;
+}
+
+.grid-item-dw {
+    background-color: #84c922;
+}
+
+
+
+
+/* card---------------------- */
+
+.card {
+    position: relative;
+    /* 倒影 */
+    /* 只支援webkit瀏覽器：Chrome、Edge、ios、safar。不支援：firefox */
+    -webkit-box-reflect: below -1px linear-gradient(to top,rgba(0, 0, 0, 0.3) 0, transparent 50%);
+    /* transparent：完全透明色(0, 0, 0, 0) */
+}
+
+.card-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 絕對置中 */
+}
+
+.card-body .fas {
+    color: #fff;
+    font-size: 2rem;
+
+}
+
+.card-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* hover---------------------- */
+
+.hover-fade-in .card-body {
+    opacity: 0;
+    transition-duration: .3s;
+}
+
+.hover-fade-in:hover .card-body {
+    opacity: 1;
+}
+
+/* 另一種淡出 */
+.hover-fade-out .card-body {
+    opacity: 1;
+    transition-duration: .3s;
+}
+
+.hover-fade-out:hover .card-body{
+    opacity: 0;
+}
+
+.hover-zoom-in .fas {
+    transform: scale(0);
+    transition-duration: .3s;
+
+}
+
+.hover-zoom-in:hover .fas {
+    transform: scale(1);
+}
+
+
+
+/* .square {
+    width: 200px;
+    height: 100px;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, .3) 0, transparent 50%);
+} */
+
+
+/* 桌機版（小於、等於 1024px 時）-------------------------- */
+@media screen and (max-width: 1024px) {
+    .article {
+        width: 80%;
+    }
+    /* 寬度固定80%，右側留白 */
+}
+
+/* 手機版（小於、等於 480px 時）-------------------------- */
+@media screen and (max-width: 480px) {
+    .article {
+        width: 100%;
+        /* 或是用 auto ，寬度左右兩側留白範圍相同 */
+        padding: 4rem 2rem 2rem;
+        /* 上4、左右2、下2，上方留nav位置 */
+    }
+    .nav {
+        top: 0;
+        margin-top: 0;
+        /* 本來有設margin-top: -117px，歸0 */
+        left: 0;
+        display: flex;
+        /* 橫式排列 */
+        justify-content: center;
+        /* 內容置中 */
+        /* background-color: pink; */
+        width: 100%;
+        z-index: 10;
+        /* 圖片內容多時，上滑會蓋住nav */
+
+    }
+
+    .article-title {
+        text-align: center;
+        /* 標題居中 */
+    }
+    
+}
