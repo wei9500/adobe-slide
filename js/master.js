@@ -1,42 +1,15 @@
-// 抓瀏覽器實體 window，不用引號，抓 標籤（body)、class 才需要引號
-// 抓出可視範圍寬度（或高度）
-// console.log($(window).width() <= 480)
-// 表達式
-
-// const isMobile = $(window).width() <= 480
-// console.log(isMobile)
-
-// 另一種方法（比較多行）---------------------
-// let isMobile;
-
-// if ($(window).width() <= 480) {
-//     isMobile = true;
-// } else {
-//     isMobile = false;
-// }
-// console.log(isMobile)
-// -----------------------------
-// 判斷式
-
+// ---------------全域變數-----------------
 const isMobile = $(window).width() <= 480
 const $slide = $('#Slide')
 const $grid = $slide.find('.grid')
 // const $grid = $('#Slide .grid')
 // 或是用 後代選取器 比較好理解
 const $nav = $('#Nav')
+const $btns = $nav.find('.nav-btn')
+// ---------------全域變數-----------------（在裡面是區域變數）
 
 console.log($grid)
 
-
-// if(isMobile == true) {
-//     $('#Grid').addClass("grid-2")
-// } else {
-//     $('#Grid').addClass("grid-3")
-// }
-// == 判斷式
-// 用程式把 grid-2  grid-3 代入，本來是寫在html，要記得刪掉，
-// 不然開發者工具手機版會同時出現 grid-2  grid-3 混淆
-// 最初寫法
 
 function setGrid() {
     if(isMobile) {
@@ -48,22 +21,6 @@ function setGrid() {
 // 可能在其他會用到，改成具名函式，記得呼叫↓↓↓
 // return：傳回值，擋掉停在這邊，可以不用寫 else{}
 
-
-
-// $(window).scroll(function() {
-//     if(isMobile == true){
-//             // console.log($(window).scrollTop());
-//         if($(this).scrollTop() == 0) {
-//             $nav.removeClass('nav-active')
-//         } else {
-//             $nav.addClass('nav-active')
-//         }
-//     }
-// });
-// （1）如果手機版 <= 480：
-//     nav-active（透明黑底）上捲時出現。scrollTop = 0 時隱藏
-// （2）如果手機版 <= 480：
-//     手機版才會執行這個動作，桌機不會（右側 nav 就不會有黑底了）
 
 function setScroll() {
     // 另一個寫法：
@@ -81,17 +38,6 @@ $(window).scroll(function() {
     // 桌機版直接return擋掉，手機版繼續執行
 });
 
-}
-
-// 初始化
-function setInit() {
-    setGrid();
-}
-
-// 事件
-function setEvent() {
-    setScroll();
-    setFancybox()
 }
 
 function setFancybox() {
@@ -161,6 +107,112 @@ function setFancybox() {
     });
 }
 
+function setClickBtn() {
+    // console.log($nav.find('.nav-btn')) 
+    
+
+    $btns.click(function(){
+         $(this)
+            .attr('disabled', true)
+            .siblings().attr('disabled', false)
+        // attr：屬性。ex：點到pr的頁面，pr 的 btn 會變成disabled，無法再點選，以防記憶體外洩
+        // 當事者啟用disbaled，其他兄弟姊妹不啟用disabled
+        const index = $(this).index()
+        // console.log(index)
+        // 取出索引值（當事者this)
+        
+       
+
+        // if (index == 0){
+        //     $slide.css('transform', 'translate(0,0)')
+        // } 
+        // if (index == 1){
+        //     $slide.css('transform', 'translate(-100vw, 0)')
+        // } if (index == 2){
+        //     $slide.css('transform', 'translate(-200vw, 0)')
+        // } 
+        // if (index == 3){
+        //     $slide.css('transform', 'translate(0, -100vh)')
+        // } 
+        // if (index == 4){
+        //     $slide.css('transform', 'translate(-100vw, -100vh)')
+        // } 
+        // if (index == 5){
+        //     $slide.css('transform', 'translate(-200vw, -100vh)')
+        // }
+        // 第1種：比較耗效能，第一個成立還是會繼續往下讀取
+        
+
+        // if (index == 0){
+        //     $slide.css('transform', 'translate(0,0)')
+        // } else if (index == 1){
+        //     $slide.css('transform', 'translate(-100vw, 0)')
+        // } else if (index == 2){
+        //     $slide.css('transform', 'translate(-200vw, 0)')
+        // } else if (index == 3){
+        //     $slide.css('transform', 'translate(0, -100vh)')
+        // } else if (index == 4){
+        //     $slide.css('transform', 'translate(-100vw, -100vh)')
+        // } else if (index == 5){
+        //     $slide.css('transform', 'translate(-200vw, -100vh)')
+        // }
+        // 第2種：6選1 用else if：效率比較好，不會有多餘的程式在跑
+
+        switch(index){
+            case 0:
+                $slide.css('transform', 'translate(0,0)')
+                break
+                // break 中斷：判斷如果條件成立，就執行事項，做完馬上停止，後面就不會執行
+        }
+        switch(index){
+            case 1:
+                $slide.css('transform', 'translate(-100vw, 0)')
+                break
+        }
+        switch(index){
+            case 2:
+                $slide.css('transform', 'translate(-200vw, 0)')
+                break
+        }
+        switch(index){
+            case 3:
+                $slide.css('transform', 'translate(0, -100vh)')
+                break
+        }
+        switch(index){
+            case 4:
+                $slide.css('transform', 'translate(-100vw, -100vh)')
+                break
+        }
+        switch(index){
+            case 5:
+                $slide.css('transform', 'translate(-200vw, -100vh)')
+                break
+        }
+        // 第3種：效率最好
+
+    })
+    
+}
+
+// 初始化
+function setInit() {
+    setGrid();
+    // $nav.find('.nav-btn').eq(0).attr('disabled', true); 優化↓↓↓
+    $btns.eq(0).attr('disabled', true);
+    
+    // 載入畫面第一個按鈕就要disabled
+}
+
+// 事件
+function setEvent() {
+    setScroll();
+    setFancybox();
+    setClickBtn();
+}
+
+
+
 setInit();
 setEvent();
 // 要呼叫才會執行
@@ -170,11 +222,5 @@ setEvent();
 
 
 
-
-// 拉動螢幕時，console true、false即時出現，不用重整
-$(window).resize(function() {
-    const isMobile = $(window).width() <= 480;
-    console.log(isMobile)
-})
 
 

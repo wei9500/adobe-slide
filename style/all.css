@@ -36,6 +36,7 @@ a{
     top: 50%;
     margin-top: -117px;
     /* 上移一半高度 */
+    z-index: 10;
 }
 
 .nav-active {
@@ -72,6 +73,11 @@ a{
 .nav-btn-active {
     pointer-events: none;
     /* 去除超連結，當頁無法點擊 */
+}
+
+.nav-btn:disabled {
+    opacity: 1;
+    /* 當頁按鈕透明度1（不透明白） */
 }
 
 /* article---------------------- */
@@ -114,6 +120,8 @@ a{
 
 .grid-slide {
     gap: 0;
+    transition-duration: 0.8s;
+    transition-timing-function: cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
 
 .grid-3 {
@@ -133,6 +141,14 @@ a{
     width: 100vw;
     height: 100vh;
     /* v：viewport 可視範圍。vw：寬可視範圍、vh：高可視範圍 */
+    overflow: auto;
+    /* 螢幕較小、圖片內容較多排時，會被切掉或是露餡到下面版面，
+    用此可以出現scroll bar當頁捲動 */
+}
+
+.grid-item::-webkit-scrollbar {
+    display: none;
+    /* 隱藏醜醜的scroll bar，for chrome、safari、opera */
 }
 
 .grid-item-ac {
